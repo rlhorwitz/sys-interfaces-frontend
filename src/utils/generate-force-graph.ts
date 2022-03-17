@@ -38,7 +38,7 @@ export const generateForceGraph = ({
         };
 
         const dragged = (event, d) => {
-            
+
             d.fx = event.x;
             d.fy = event.y;
         };
@@ -93,14 +93,29 @@ export const generateForceGraph = ({
 
     const node = svg
         .append("g")
-        .attr("stroke", "#fff")
-        .attr("stroke-width", 2)
-        .selectAll("circle")
+        .attr("fill", "currentColor")
+        .attr("stroke-linecap", "round")
+        .attr("stroke-linejoin", "round")
+        .selectAll("g")
         .data(nodes)
-        .join("circle")
+        .join("g")
+        .call(drag(simulation));
+
+    node.append("circle")
+        .attr("stroke", "white")
+        .attr("stroke-width", 1.5)
         .attr("r", 10)
         .attr("fill", d => color(d.sysAdmin))
-        .call(drag(simulation));
+
+    node.append("text")
+        .attr("x", 10)
+        .attr("y", "0.4em")
+        .attr("font-size", ".75em")
+        .text(d => d.id)
+        .clone(true).lower()
+        .attr("fill", "none")
+        .attr("stroke", "white")
+        .attr("stroke-width", 3);
 
     simulation.on("tick", () => {
         //update link positions
@@ -111,9 +126,7 @@ export const generateForceGraph = ({
             .attr("y2", d => d.target.y);
 
         // update node positions
-        node
-            .attr("cx", d => d.x)
-            .attr("cy", d => d.y);
+        node.attr("transform", d => `translate(${d.x},${d.y})`);
     });
 
     return {
