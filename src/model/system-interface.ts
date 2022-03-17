@@ -1,6 +1,6 @@
 export type SystemInterface = {
     source: string;
-    destination: string;
+    target: string;
     destinationOwner: string;
     destinationAdmin: string;
     sourceOwner: string;
