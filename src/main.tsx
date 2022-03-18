@@ -4,7 +4,7 @@ import ReactDOM from 'react-dom'
 import './index.css'
 import App from './App'
 
-
+// Renders our app into the DOM 
 ReactDOM.render(
   <React.StrictMode>
     <App />

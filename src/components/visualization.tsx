@@ -7,6 +7,8 @@ import type { ReactElement } from 'react';
 interface Props {
     className?: string;
     generateGraph: (ref: HTMLDivElement) => {
+        // generateGraph is a function that takes the container as a parameter; "generate the graph in the following container"
+        //function returns the nodes (which is graph, the svg element) & returns a function "destory" (which destroys it)
         destroy: () => void;
         nodes: () => SVGSVGElement | null;
     }
@@ -27,6 +29,7 @@ export const Visualization = ({ generateGraph, ...rest }: Props): ReactElement =
 
         return destroyFn;
     }, []);
-    //Spreads it here {...rest} 
+    //Spreads it here {...rest}; classname ends up on this div 
+    // Did it this way becasue say I want to set a regular html attribute, it would end up on the div (makes it extensible). I'll want to add labels later on
     return <div ref={containerRef} {...rest}/>
 };
