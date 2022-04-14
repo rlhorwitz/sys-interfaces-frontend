@@ -113,7 +113,8 @@ export const generateForceGraph = ({
         // r is the radius of the circles 
         .attr("r", 10)
         // color of the nodes; made sure circles and legend key match 
-        .attr("fill", d => color(showOwners ? d.businessOwner : d.sysAdmin))
+        // @fixme - Remove null coallescing operator once businessOwner exists on all the data
+        .attr("fill", d => color(showOwners ? d.businessOwner ?? d.sysAdmin : d.sysAdmin))
 
     node.append("text")
         .attr("x", 10)
