@@ -5,9 +5,10 @@ interface Props {
     container: HTMLDivElement;
     linksData: SystemInterface[];
     nodesData: SystemInterfaceGraphNode[];
-    markerIds: string[];
+    sysAdmins: string[];
     location: string;
     color: d3.ScaleOrdinal<string, string, never>;
+    showOwners: boolean;
 }
 
 interface Result {
@@ -19,14 +20,15 @@ export const generateForceGraph = ({
     container,
     linksData,
     nodesData,
-    markerIds,
+    sysAdmins,
     location,
-    color
+    color,
+    showOwners
 }: Props): Result => {
     // Create copies of the linkes data and nodes data that are passed in 
     const links = linksData.map((d) => Object.assign({}, d));
     const nodes = nodesData.map((d) => Object.assign({}, d));
-// Gets the bounding rectangle around the container (sets canvas size)
+    // Gets the bounding rectangle around the container (sets canvas size)
     const containerRect = container.getBoundingClientRect();
     const height = containerRect.height;
     const width = containerRect.width;
@@ -52,7 +54,7 @@ export const generateForceGraph = ({
         };
 
         return d3
-        // returns the event listener 
+            // returns the event listener 
             .drag<SVGGElement, SystemInterfaceGraphNode>()
             .on("start", dragStarted)
             .on("drag", dragged)
@@ -73,7 +75,7 @@ export const generateForceGraph = ({
         .attr("viewBox", [-width / 2, -height / 2, width, height]);
 
     svg.append("defs").selectAll("marker")
-        .data(markerIds)
+        .data(sysAdmins)
         .join("marker")
         .attr("id", d => `arrow-${d}`)
         .attr("viewBox", "0 -5 10 10")
@@ -111,7 +113,7 @@ export const generateForceGraph = ({
         // r is the radius of the circles 
         .attr("r", 10)
         // color of the nodes; made sure circles and legend key match 
-        .attr("fill", d => color(d.sysAdmin))
+        .attr("fill", d => color(showOwners ? d.businessOwner : d.sysAdmin))
 
     node.append("text")
         .attr("x", 10)

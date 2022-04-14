@@ -7,6 +7,8 @@ yarn-error.log*
 pnpm-debug.log*
 lerna-debug.log*
 
+azure-documentdb-datamigrationtool-1.8.3
+
 node_modules
 dist
 dist-ssr

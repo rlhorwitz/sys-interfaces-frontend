@@ -4,7 +4,7 @@
   "version": "0.0.0",
   "homepage": "https://github.com/rlhorwitz/sys-interfaces-frontend",
   "scripts": {
-    "dev": "vite",
+    "dev": "vite --config vite-local.js",
     "build": "tsc && vite build",
     "preview": "vite preview",
     "predeploy": "npm run build",
