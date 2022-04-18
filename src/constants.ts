@@ -1,10 +1,4 @@
 export const data = {
-    "sysAdmins": [
-        "Business Systems", "DBAs", "Engineering", "Content", "Unknown", "Engineering; Marketplaces", "Marketing"
-    ],
-    "businessOwners": [
-        "Business Systems", "DBAs", "Engineering", "Content", "Unknown", "Engineering; Marketplaces", "Marketing"
-    ],
     "nodes": [
         {
             "id": "DocuSign",
